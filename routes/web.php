@@ -28,6 +28,9 @@ Route::get('/animals/create', [AnimalController::class, 'create'])->name('animal
 Route::get('/animals/{animal}', [AnimalController::class, 'show'])->name('animals.show');
 Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])->name('animals.destroy');
 
+Route::get('/secret',function (){
+    return "secret";
+})->middleware(['auth']);
 
 Route::redirect('/here','/there');
 
