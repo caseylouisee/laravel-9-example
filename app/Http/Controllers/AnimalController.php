@@ -25,7 +25,7 @@ class AnimalController extends Controller
      */
     public function create()
     {
-        //
+        return view('animals.create');
     }
 
     /**
@@ -36,7 +36,22 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'weight' => 'required|numeric',
+            'date_of_birth' => 'nullable|date',
+            'enclosure_id' => 'required|integer'
+        ]);
+
+        $a = new Animal;
+        $a->name = $validatedData['name'];
+        $a->weight = $validatedData['weight'];
+        $a->date_of_birth = $validatedData['date_of_birth'];
+        $a->enclosure_id = $validatedData['enclosure_id'];
+        $a->save();
+
+        session()->flash('message','Animal was created');
+        return redirect()->route('animals.index');
     }
 
     /**
