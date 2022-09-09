@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
+use App\Models\Enclosure;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
@@ -25,7 +26,8 @@ class AnimalController extends Controller
      */
     public function create()
     {
-        return view('animals.create');
+        $enclosures = Enclosure::orderBy('name','asc')->get();
+        return view('animals.create', ['enclosures'=>$enclosures]);
     }
 
     /**
@@ -60,9 +62,8 @@ class AnimalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Animal $animal)
     {
-        $animal = Animal::FindOrFail($id);
         return view('animals.show',['animal'=>$animal]);
     }
 
@@ -95,8 +96,10 @@ class AnimalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Animal $animal)
     {
-        //
+        $animal->delete();
+        // session()->flash('message', 'Animal was deleted');
+        return redirect()->route('animals.index')->with('message','Animal was deleted');
     }
 }

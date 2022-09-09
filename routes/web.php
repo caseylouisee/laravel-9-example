@@ -25,7 +25,9 @@ Route::get('/dashboard', function () {
 Route::get('/animals', [AnimalController::class, 'index'])->name('animals.index');
 Route::get('/animals/create', [AnimalController::class, 'create'])->name('animals.create');
 	Route::post('/animals', [AnimalController::class, 'store'])->name('animals.store');
-Route::get('/animals/{id}', [AnimalController::class, 'show'])->name('animals.show');
+Route::get('/animals/{animal}', [AnimalController::class, 'show'])->name('animals.show');
+Route::delete('/animals/{animal}', [AnimalController::class, 'destroy'])->name('animals.destroy');
+
 
 Route::redirect('/here','/there');
 
