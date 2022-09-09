@@ -21,4 +21,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/animals', function(){
+    return "Swansea zoo has many animals";
+});
+
+Route::redirect('/here','/there');
+
+Route::get('/animals/{name}', function($name){
+    return "Swansea zoo is home to $name and many others";
+});
+
+Route::get('user/{name?}', function($name = null){
+    return $name;
+});
+
+
 require __DIR__.'/auth.php';
