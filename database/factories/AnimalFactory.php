@@ -17,8 +17,9 @@ class AnimalFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>fake()->name,
+            'name'=>fake()->firstName,
             'weight'=>fake()->randomFloat(2,150,500),
+            'enclosure_id'=>1,
         ];
     }
 }

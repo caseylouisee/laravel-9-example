@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('animals', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->double('weight',8,2);
-            $table->dateTime('date_of_birth')->nullable();
-            $table->unsignedBigInteger('enclosure_id');
+        Schema::create('animal_keeper', function (Blueprint $table) {
+            $table->primary(['animal_id','keeper_id']);
+            $table->unsignedBigInteger('animal_id');
+            $table->unsignedBigInteger('keeper_id');
             $table->timestamps();
-
-            $table->foreign('enclosure_id')->references('id')->on('enclosures')
+            $table->foreign('animal_id')->references('id')->on('animals')
+                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('keeper_id')->references('id')->on('keepers')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animals');
+        Schema::dropIfExists('animal_keeper');
     }
 };

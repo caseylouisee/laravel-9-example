@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('animals', function (Blueprint $table) {
+        Schema::create('enclosures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('weight',8,2);
-            $table->dateTime('date_of_birth')->nullable();
-            $table->unsignedBigInteger('enclosure_id');
             $table->timestamps();
-
-            $table->foreign('enclosure_id')->references('id')->on('enclosures')
-                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('animals');
+        Schema::dropIfExists('enclosures');
     }
 };
