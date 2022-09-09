@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnimalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/animals', function(){
-    return "Swansea zoo has many animals";
-});
+Route::get('/animals', [AnimalController::class, 'index'])->name('animals.index');
+Route::get('/animals/{id}', [AnimalController::class, 'show'])->name('animals.show');
 
 Route::redirect('/here','/there');
 
@@ -33,6 +33,14 @@ Route::get('/animals/{name}', function($name){
 
 Route::get('user/{name?}', function($name = null){
     return $name;
+});
+
+Route::get('/food', function(){
+    return view('food');
+});
+
+Route::get('/enclosures/{animal?}', function($animal = null){
+    return view('enclosure', ['animal'=>$animal]);
 });
 
 
